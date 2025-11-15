@@ -1,0 +1,51 @@
+import polars as pl
+
+dtypes = {
+    "customer_id": pl.String,
+    "customer_name": pl.String,
+    "gender_cd": pl.String,
+    "gender": pl.String,
+    "birth_day": pl.String,
+    "age": pl.UInt8,
+    "address": pl.String,
+    "full_address": pl.String,
+    "postal_cd": pl.String,
+    "application_store_cd": pl.String,
+    "application_date": pl.String,
+    "status_cd": pl.String,
+    "category_major_cd": pl.String,
+    "category_major_name": pl.String,
+    "category_medium_cd": pl.String,
+    "category_medium_name": pl.String,
+    "category_small_cd": pl.String,
+    "category_small_name": pl.String,
+    "prefecture": pl.String,
+    "prefecture_cd": pl.UInt8,
+    "city": pl.String,
+    "town": pl.String,
+    "product_cd": pl.String,
+    "store_cd": pl.String,
+    "tel_no": pl.String,
+    "street": pl.String,
+    "longitude": pl.Float32,
+    "latitude": pl.Float32,
+    "unit_price": pl.UInt32,
+    "unit_cost": pl.UInt32,
+    "sales_ymd": pl.String,
+    "sales_epoch": pl.UInt64,
+    "receipt_no": pl.UInt64,
+    "receipt_sub_no": pl.UInt64,
+    "quantity": pl.UInt64,
+    "amount": pl.UInt64,
+}
+
+for label in [
+    "category",
+    "customer",
+    "geocode",
+    "product",
+    "receipt",
+    "store",
+]:
+    df = pl.read_csv(f"{label}.csv", schema_overrides=dtypes)
+    df.write_parquet(f"{label}.parquet")
